@@ -43,7 +43,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 10px 0px 0px 0px;
-  background-color: #5BDEFF;
+  background-color: #FFAE42;
   color: #1C454F;
   width: 100%;
 }
@@ -61,6 +61,7 @@ body {
 
 .content {
   min-height: 500px;
+  background-color: #f0ead2;
 }
 
 /* Footer */

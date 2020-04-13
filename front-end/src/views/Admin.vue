@@ -65,7 +65,6 @@
         //ADD
         //author: "",
         //text: "",
-        //index: 0,
       }
     },
     computed: {

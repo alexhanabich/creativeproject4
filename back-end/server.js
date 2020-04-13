@@ -69,8 +69,7 @@ app.post('/api/items', async (req, res) => {
     path: req.body.path,
     description: req.body.description,
     likes: req.body.likes,
-    //
-    comments: req.body.comments,
+    comments: req.body.commens,
     index: -1,
     //index: req.body.index,
   });
@@ -106,13 +105,15 @@ app.delete('/api/items/:id', async (req, res) => {
 
 app.put('/api/items/:id', async (req, res) => {
   try {
+    let commentData = {author: req.body.author, index: req.body.index, text: req.body.text, timestamp: req.body.timestamp};
+    //let commentData = {author: 'test', index: '1', text: 'hi', timestamp: 'hi'};
     let item = await Item.findOne({
       _id: req.params.id,
     });
     item.title = req.body.title;
     item.description = req.body.description;
     item.likes = req.body.likes;
-    item.comments.push(req.body.commentData);
+    item.comments.push(commentData);
     /*item.comments.author = req.body.comments.author;
     item.comments.text = req.body.comments.text;
     item.comments.index = req.body.comments.index;

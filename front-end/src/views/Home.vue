@@ -8,18 +8,19 @@
         <h2 v-if = "item.likes != 1">Votes: {{item.likes}}  <button class="auto" @click="addLike(item)"><i class="far fa-thumbs-up fa-2x"></i></button></h2>
         <h2 v-else> Vote: {{item.likes}}  <button class="auto" @click="addLike(item)"><i class="far fa-thumbs-up fa-2x"></i></button></h2>
         <h1>Share Your Thoughts!</h1>
-        <form v-on:submit.prevent="addComment(item)">
+
+        <div class="comment">
           <input v-model="addedName" placeholder="Name">
           <textarea v-model="addedComment"></textarea>
           <br />
-          <button type="submit">Comment</button>
-        </form>
-        <!--<div v-for="comment in item.comments" :key="comment.index"> 
-          <hr>
-          <p>{{comment.text}}</p>
-          <p><i>-- {{comment.author}}</i></p>
-          <p>{{comment.timestamp}}</p>
-        </div>-->
+          <button @click="addComment(item)">Comment</button>
+          <div v-for="comment in item.comments" :key="comment.index"> 
+            <hr>
+            <p>{{comment.text}}</p>
+            <p><i>-- {{comment.author}}</i></p>
+            <p>{{comment.timestamp}}</p>
+          </div>
+        </div>
         
       </div>
     </section>
@@ -52,28 +53,15 @@
     async addComment(item) {
       try {
         item.index += 1;
-        /*this.comments.push({
-          author: this.addedName,
-          text: this.addedComment,
-          index: item.index,
-          timestamp: moment().format('MMMM Do h:mm a')
-        });*/
-        this.commentData = {
-          author: this.addedName,
-          text: this.addedComment,
-          index: item.index,
-          timestamp: moment().format('MMMM Do h:mm a')
-        };
         await axios.put("/api/items/" + item._id, {
           title: item.title,
           description: item.description,
           likes: item.likes,
           index: item.index,
-          comments:this.commentData,
-          /*comments.author: this.comments.author,
-          comments.text: this.comments.text,
-          comments.index: this.comments.index,
-          comments.timestamp: this.comments.timestamp,*/
+          //comments: this.commentData
+          author: this.addedName,
+          text: this.addedComment,
+          timestamp: moment().format('MMMM Do h:mm a'),
         });
         this.addedName = '';
         this.addedComment = '';
@@ -129,23 +117,27 @@
 *:after {
   box-sizing: inherit;
 }
+.home {
+  column-count: 2;
+}
 
 .image-gallery {
   display: flex;
-  justify-content: space-between;
-  column-count: 2;
-  column-gap: 30px;
+  flex-wrap: wrap;
+  width: 60%;
+  margin: auto;
 }
-
-.image {
-  margin: 0 10% 5% 10%;
   
+.image {
+  margin: 0 5% 5% 5%;
   display: inline-block;
   width: 100%;
 }
 
 .image img {
   width: 100%;
+  height: 300px;
+  
 }
 
 button {
@@ -170,13 +162,18 @@ button {
 /* Masonry on large screens */
 @media only screen and (min-width: 1024px) {
   .image-gallery {
-    column-count: 4;
+    
+    column-count: 2 !important;
+    display: flex;
+
+    
   }
 }
 
 /* Masonry on medium-sized screens */
 @media only screen and (max-width: 1023px) and (min-width: 768px) {
   .image-gallery {
+    column-count: 2 !important;
     display: flex;
     flex-wrap: wrap;
   }

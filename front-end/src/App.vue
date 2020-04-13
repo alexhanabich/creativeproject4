@@ -60,14 +60,13 @@ body {
 }
 
 .content {
-  
   min-height: 500px;
 }
 
 /* Footer */
 .footer {
   height: 50px;
-  padding: 20px 100px 0px 100px;
+  padding: 20px 0px 0px 0px;
   background: #e3e3e3;
   font-size: 12px;
   display: flex;

@@ -22,6 +22,12 @@
             <p><i>-- {{comment.author}}</i></p>
             <p>{{comment.timestamp}}</p>
           </div>
+          <div v-for="comment in comments" :key="comment.index"> 
+            <hr>
+            <p>{{comment.text}}</p>
+            <p><i>-- {{comment.author}}</i></p>
+            <p>{{comment.timestamp}}</p>
+          </div>
         </div>
         
       </div>
@@ -41,10 +47,11 @@
       items: [],
       addedName: '',
       addedComment: '',
-      addedTimeStamp: '',
       commentIndex: '',
       //comments: [],
       commentData: {},
+      comments:[],
+      position: 0,
       
       }
     },
@@ -55,6 +62,12 @@
     async addComment(item) {
       try {
         item.index += 1;
+        this.comments.push({
+          author: this.addedName,
+          text: this.addedComment,
+          timestamp: moment().format('MMMM Do h:mm a'),
+        });
+        this.position += 1;
         await axios.put("/api/items/" + item._id, {
           title: item.title,
           description: item.description,

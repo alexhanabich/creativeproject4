@@ -1,11 +1,11 @@
 <template>
 <div class="admin">
   <h1>Settings!</h1>
-    <div class="heading">
+    <!-- <div class="heading">
       <div class="circle">1</div>
-      <h2>What Do You Have in Your Mind?</h2> 
-    </div>
-    
+      <h2>What Do You Have in Your Mind?</h2>
+    </div> -->
+    <h3>Add up to Two Food!</h3>
     <div class="add">
       <div class="form">
         <div class ="formTwo">
@@ -27,10 +27,12 @@
         <h3>{{addItem.description}}</h3>
       </div>
     </div>
-    <div class="heading">
+    <!-- <div class="heading">
   <div class="circle">2</div>
     <h2>Edit/Delete an Item</h2>
-  </div>
+  </div> -->
+  <h3>Edit/Delete an Item</h3>
+
   <div class="edit">
     <div class="form">
       <input v-model="findTitle" placeholder="Search">
@@ -50,7 +52,7 @@
     </div>
   </div>
 </div>
-  
+
 </template>
 
 <script>
@@ -157,6 +159,10 @@
 
 <style scoped>
 
+h3 {
+  font-size: 25px;
+}
+
 .admin {
   margin: 0 5em 1.5em 5em;
 }
@@ -181,7 +187,7 @@
   display: flex;
 }
 
-.circle {
+/* .circle {
   border-radius: 50%;
   width: 18px;
   height: 18px;
@@ -189,7 +195,7 @@
   background: #333;
   color: #fff;
   text-align: center
-}
+} */
 
 /* Form */
 input,
@@ -244,4 +250,3 @@ textarea {
    border: 1px solid #ccc;
 }
 </style>
-

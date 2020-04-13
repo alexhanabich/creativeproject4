@@ -13,7 +13,7 @@
           <textarea v-model="description" placeholder="Description"></textarea>
           <p></p>
         </div>
-        <input type="file" name="photo" @change="fileChanged">
+        <input class="file" type="file" name="photo" @change="fileChanged">
         <div class="suggestions" v-if="suggestions.length < 2">
           <button @click="upload">Upload</button>
         </div>
@@ -42,7 +42,6 @@
     </div>
     <div class="upload" v-if="findItem">
       <input v-model="findItem.title">
-      <p></p>
       <img :src="findItem.path" />
       <textarea v-model="findItem.description"></textarea>
       <div class="actions" v-if="findItem">
@@ -206,6 +205,12 @@ button {
   font-size: 1em;
   margin-bottom: 5pt;
   margin-top: 5pt;
+  border-radius: .4em;
+}
+
+.file {
+  font-family: 'Indie Flower', cursive;
+  border-radius: .4em;
 }
 
 .form {
@@ -224,7 +229,9 @@ button {
 /* Suggestions */
 .suggestions {
   width: 200px;
-  border: 1px solid #ccc;
+  border: 1px transparent #ccc;
+  border-radius: .4em;
+  
 }
 
 .formTwo {
@@ -244,6 +251,7 @@ button {
 .upload {
   display: flex;
   flex-direction: column;
+  
 }
 
 h1 {
@@ -252,5 +260,10 @@ h1 {
 }
 textarea {
    border: 1px solid #ccc;
+}
+
+input,
+textarea {
+  border-radius: .4em;
 }
 </style>

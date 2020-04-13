@@ -16,19 +16,28 @@
             <br />
             <button @click="addComment(item)">Comment</button>
           </div>
-          <div v-for="comment in item.comments" :key="comment.index"> 
-            <hr>
-            <p>{{comment.text}}</p>
-            <p><i>-- {{comment.author}}</i></p>
-            <p>{{comment.timestamp}}</p>
-          </div>
-          <div v-for="comment in comments" :key="comment.index"> 
-            <hr>
-            <p>{{comment.text}}</p>
-            <p><i>-- {{comment.author}}</i></p>
-            <p>{{comment.timestamp}}</p>
+          <div class="speech-bubble">
+            <div v-for="comment in item.comments" :key="comment.index"> 
+              <hr>
+              <div class ="top">
+                <p class ="author"><i>{{comment.author}}</i></p>
+                <p>{{comment.timestamp}}</p>
+              </div>
+              <p>{{comment.text}}</p>
+              
+            </div>
+            <div v-for="comment in comments" :key="comment.index"> 
+              <hr>
+              <div class ="top">
+                <p class ="author"><i>{{comment.author}}</i></p>
+                <p>{{comment.timestamp}}</p>
+              </div>
+              <p>{{comment.text}}</p>
+              
+            </div>
           </div>
         </div>
+
         
       </div>
     </section>
@@ -174,6 +183,49 @@ button {
 input {
   width: 30%;
   margin: 0 0 5pt 0;
+}
+
+.author {
+  font-weight: bold;
+  color: gray;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.speech-bubble {
+	position: relative;
+	background: #FEAD42;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 2px solid black;
+	border-bottom-color: #FEAD42;
+	border-top: 0;
+	border-left: 0;
+	margin-left: -1px;
+	margin-top: -2px;
+}
+
+input,
+textarea {
+  border-radius: .4em;
+}
+
+p {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 5px;
 }
 
 /* Masonry on large screens */

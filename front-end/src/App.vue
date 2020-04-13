@@ -60,7 +60,7 @@ body {
 }
 
 .content {
-  min-height: 570px;
+  min-height: 800px;
   background-color: #f0ead2;
 }
 

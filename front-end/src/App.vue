@@ -43,7 +43,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 10px 0px 0px 0px;
-  background-color: #5BDEFF;
+  background-color: #FFAE42;
   color: #1C454F;
   width: 100%;
 }
@@ -60,13 +60,15 @@ body {
 }
 
 .content {
-  min-height: 500px;
+  min-height: 570px;
+  background-color: #f0ead2;
 }
 
 /* Footer */
 .footer {
   height: 50px;
-  padding: 20px 0px 0px 0px;
+  margin: 0 0 0 0;
+  padding: 0px 0px 0px 0px;
   background: #e3e3e3;
   font-size: 12px;
   display: flex;

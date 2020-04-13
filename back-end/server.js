@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
 const mongoose = require('mongoose');
 
 // connect to the database
-mongoose.connect('mongodb://localhost:27017/museum', {
+mongoose.connect('mongodb://localhost:27017/food', {
   useNewUrlParser: true
 });
 
@@ -23,11 +23,28 @@ const upload = multer({
   }
 });
 
-// Create a scheme for items in the museum: a title and a path to an image.
+
+const subSchema  = new mongoose.Schema({
+  author: String,
+  text: String,
+  index: Number,
+  timestamp: String,
+});
+
 const itemSchema = new mongoose.Schema({
   title: String,
   path: String,
   description: String,
+  likes: Number, //MODIFIED
+  comments: [subSchema],
+  /*comments: [{
+    author: String,
+    text: String,
+    index: Number,
+    timestamp: String,
+  }],*/
+  index: Number,
+  //comments: String, //MODIFIED
 });
 
 // Create a model for items in the museum.
@@ -51,6 +68,11 @@ app.post('/api/items', async (req, res) => {
     title: req.body.title,
     path: req.body.path,
     description: req.body.description,
+    likes: req.body.likes,
+    //
+    comments: req.body.comments,
+    index: -1,
+    //index: req.body.index,
   });
   try {
     await item.save();
@@ -89,6 +111,12 @@ app.put('/api/items/:id', async (req, res) => {
     });
     item.title = req.body.title;
     item.description = req.body.description;
+    item.likes = req.body.likes;
+    item.comments.push(req.body.commentData);
+    /*item.comments.author = req.body.comments.author;
+    item.comments.text = req.body.comments.text;
+    item.comments.index = req.body.comments.index;
+    item.comments.timestamp = req.body.comments.timestamp;*/
     item.save();
   } catch (error) {
     console.log(error);

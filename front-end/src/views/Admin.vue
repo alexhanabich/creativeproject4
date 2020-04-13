@@ -1,9 +1,9 @@
 <template>
 <div class="admin">
-  <h1>The Admin Page!</h1>
+  <h1>Settings!</h1>
     <div class="heading">
       <div class="circle">1</div>
-      <h2>Add an Item</h2>
+      <h2>What Do You Have in Your Mind?</h2> 
     </div>
     <div class="add">
       <div class="form">
@@ -60,6 +60,12 @@
         findTitle: "",
         findItem: null,
         description: "",
+        likes: 0,
+        comments: [],
+        //ADD
+        //author: "",
+        //text: "",
+        //index: 0,
       }
     },
     computed: {
@@ -84,6 +90,12 @@
             title: this.title,
             path: r1.data.path,
             description: this.description,
+            likes: this.likes,
+            //index: this.index,
+            comments: this.comments,
+            //ADD
+            //author: this.author,
+            //text: this.text,
           });
           this.addItem = r2.data;
         } catch (error) {
@@ -116,8 +128,13 @@
       async editItem(item) {
         try {
           await axios.put("/api/items/" + item._id, {
-            title: this.findItem.title,
-            description: this.findItem.description,
+            title: item.title,
+            description: item.description,
+            likes: item.likes,
+            index: item.index,
+            comments: item.comments,
+            //author: item.author,
+            //text: item.text,
           });
           this.findItem = null;
           this.getItems();
@@ -131,6 +148,10 @@
 </script>
 
 <style scoped>
+
+.admin {
+  margin: 0 5em 1.5em 5em;
+}
 .image h2 {
   font-style: italic;
   font-size: 1em;
@@ -167,7 +188,7 @@ input,
 textarea,
 select,
 button {
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Indie Flower', cursive;
   font-size: 1em;
   margin-bottom: 5pt;
   margin-top: 5pt;

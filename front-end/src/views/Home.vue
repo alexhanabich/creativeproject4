@@ -10,10 +10,12 @@
         <h1>Share Your Thoughts!</h1>
 
         <div class="comment">
-          <input v-model="addedName" placeholder="Name">
-          <textarea v-model="addedComment"></textarea>
-          <br />
-          <button @click="addComment(item)">Comment</button>
+          <div class="input">
+            <input v-model="addedName" placeholder="Name">
+            <textarea v-model="addedComment"></textarea>
+            <br />
+            <button @click="addComment(item)">Comment</button>
+          </div>
           <div v-for="comment in item.comments" :key="comment.index"> 
             <hr>
             <p>{{comment.text}}</p>
@@ -99,37 +101,30 @@
 </script>
 
 <style scoped>
-
 .image h1 {
   font-size: 150%;
 }
-
 .image h2 {
   font-size: 150%;
   font-style: italic;
   display: flex;
   justify-content: space-between;
 }
-
 /* Masonry */
 *,
 *:before,
 *:after {
   box-sizing: inherit;
 }
-.home {
-  column-count: 2;
-}
-
 .image-gallery {
   display: flex;
-  flex-wrap: wrap;
-  width: 60%;
-  margin: auto;
+  justify-content: space-between;
+  column-count: 2;
+  column-gap: 30px;
 }
-  
 .image {
-  margin: 0 5% 5% 5%;
+  margin: 0 10% 5% 10%;
+  
   display: inline-block;
   width: 100%;
 }
@@ -158,6 +153,15 @@ button {
   color: black;
 }
 
+.input {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 30%;
+  margin: 0 0 5pt 0;
+}
 
 /* Masonry on large screens */
 @media only screen and (min-width: 1024px) {

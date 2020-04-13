@@ -5,6 +5,7 @@
       <div class="circle">1</div>
       <h2>What Do You Have in Your Mind?</h2> 
     </div>
+    
     <div class="add">
       <div class="form">
         <div class ="formTwo">
@@ -13,7 +14,12 @@
           <p></p>
         </div>
         <input type="file" name="photo" @change="fileChanged">
-        <button @click="upload">Upload</button>
+        <div class="suggestions" v-if="suggestions.length < 2">
+          <button @click="upload">Upload</button>
+        </div>
+        <div v-else>
+          <button @click="alert">Upload</button>
+        </div>
       </div>
       <div class="upload" v-if="addItem">
         <h2>{{addItem.title}}</h2>
@@ -79,6 +85,9 @@
     methods: {
       fileChanged(event) {
         this.file = event.target.files[0]
+      },
+      alert() {
+        alert("You can add only two menu! Please delete one before you proceed.")
       },
       async upload() {
         try {

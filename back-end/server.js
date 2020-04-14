@@ -92,7 +92,7 @@ app.get('/api/items', async (req, res) => {
   }
 });
 
-app.delete('/api/items/:id', async (req, res) => { 
+app.delete('/api/items/:id', async (req, res) => {
   try {
     await Item.deleteOne({
       _id: req.params.id
@@ -113,7 +113,9 @@ app.put('/api/items/:id', async (req, res) => {
     item.title = req.body.title;
     item.description = req.body.description;
     item.likes = req.body.likes;
-    item.comments.push(commentData);
+    if(req.body.author != null && req.body.text != null) {
+      item.comments.push(commentData);
+    }
     /*item.comments.author = req.body.comments.author;
     item.comments.text = req.body.comments.text;
     item.comments.index = req.body.comments.index;

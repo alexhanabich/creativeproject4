@@ -1,44 +1,45 @@
 <template>
   <div class="home">
     <section class="image-gallery">
-      <div class="image" v-for="item in items" :key="item.id">
+      <div class="image" v-for="(item, idx) in items" :key="item.id">
         <h1>{{item.title}}</h1>
         <img :src="item.path" />
         <h2>{{item.description}}</h2>
         <h2 v-if = "item.likes != 1">Votes: {{item.likes}}  <button class="auto" @click="addLike(item)"><i class="far fa-thumbs-up fa-2x"></i></button></h2>
         <h2 v-else> Vote: {{item.likes}}  <button class="auto" @click="addLike(item)"><i class="far fa-thumbs-up fa-2x"></i></button></h2>
-        <h1>Share Your Thoughts!</h1>
+        <h1>Share Your Thoughts about {{item.title}}!</h1>
 
         <div class="comment">
           <div class="input">
-            <input v-model="addedName" placeholder="Name">
-            <textarea v-model="addedComment"></textarea>
+            <input v-model="addedNames[idx]" placeholder="Name">
+            <textarea v-model="addedComments[idx]"></textarea>
             <br />
-            <button @click="addComment(item)">Comment</button>
+            <button @click="addComment(item, idx)">Comment</button>
           </div>
           <div class="speech-bubble">
-            <div v-for="comment in item.comments" :key="comment.index"> 
+            <div v-for="comment in item.comments" :key="comment.index">
               <hr>
               <div class ="top">
                 <p class ="author"><i>{{comment.author}}</i></p>
                 <p>{{comment.timestamp}}</p>
               </div>
               <p>{{comment.text}}</p>
-              
+
             </div>
-            <div v-for="comment in comments" :key="comment.index"> 
-              <hr>
-              <div class ="top">
-                <p class ="author"><i>{{comment.author}}</i></p>
-                <p>{{comment.timestamp}}</p>
-              </div>
-              <p>{{comment.text}}</p>
-              
+            <div v-for="comment in comments" :key="comment.index">
+              <div v-if="comment.idx === idx">
+                <hr>
+                <div class ="top">
+                  <p class ="author"><i>{{comment.author}}</i></p>
+                  <p>{{comment.timestamp}}</p>
+                </div>
+                <p>{{comment.text}}</p>
+            </div>
             </div>
           </div>
         </div>
 
-        
+
       </div>
     </section>
   </div>
@@ -54,27 +55,28 @@
     data() {
       return {
       items: [],
-      addedName: '',
-      addedComment: '',
+      addedNames: [],
+      addedComments: [],
       commentIndex: '',
       //comments: [],
       commentData: {},
       comments:[],
       position: 0,
-      
+
       }
     },
   created() {
     this.getItems();
   },
   methods: {
-    async addComment(item) {
+    async addComment(item, idx) {
       try {
         item.index += 1;
         this.comments.push({
-          author: this.addedName,
-          text: this.addedComment,
+          author: this.addedNames[idx],
+          text: this.addedComments[idx],
           timestamp: moment().format('MMMM Do h:mm a'),
+          idx: idx,
         });
         this.position += 1;
         await axios.put("/api/items/" + item._id, {
@@ -83,12 +85,12 @@
           likes: item.likes,
           index: item.index,
           //comments: this.commentData
-          author: this.addedName,
-          text: this.addedComment,
+          author: this.addedNames[idx],
+          text: this.addedComments[idx],
           timestamp: moment().format('MMMM Do h:mm a'),
         });
-        this.addedName = '';
-        this.addedComment = '';
+        this.addedNames[idx] = '';
+        this.addedComments[idx] = '';
       } catch (error) {
         console.log(error);
       }
@@ -146,7 +148,7 @@
 }
 .image {
   margin: 0 10% 5% 10%;
-  
+
   display: inline-block;
   width: 100%;
 }
@@ -154,7 +156,7 @@
 .image img {
   width: 100%;
   height: 300px;
-  
+
 }
 
 button {
@@ -231,11 +233,11 @@ p {
 /* Masonry on large screens */
 @media only screen and (min-width: 1024px) {
   .image-gallery {
-    
+
     column-count: 2 !important;
     display: flex;
 
-    
+
   }
 }
 

@@ -68,7 +68,7 @@ body {
 .footer {
   height: 50px;
   margin: 0 0 0 0;
-  padding: 0px 0px 0px 0px;
+  padding: 30px 30px 30px 30px;
   background: #e3e3e3;
   font-size: 12px;
   display: flex;
